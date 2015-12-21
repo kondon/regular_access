@@ -1,5 +1,13 @@
 # -*- coding: utf-8 -*-
+import sys
+import os
 import requests
+
+def log_file(t):
+    path = "D:\\heroku_heroku_http_access_log"
+    f = open(path+"test.log",'a')
+    f.write(t+"\n")
+    f.close()
 
 if __name__ == '__main__':
     query = {
@@ -10,4 +18,5 @@ if __name__ == '__main__':
     print r.encoding
     print r.headers
     print r.text
-    print r.json()
+    log_file(r.text)
+#    print r.json()
