@@ -5,7 +5,7 @@ if __name__ == '__main__':
     query = {
         'id': 1
     }
-    r = requests.get('https://test-sample-kondo.herokuapp.com/web/index.php', params=query)
+    r = requests.get('https://test-sample-kondo.herokuapp.com/web/test_api.php', params=query)
     print r.status_code
     print r.encoding
     print r.headers
