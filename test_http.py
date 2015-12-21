@@ -4,7 +4,7 @@ import os
 import requests
 
 def log_file(t):
-    path = "D:\\heroku_heroku_http_access_log"
+    path = "D:\\heroku_http_access_log"
     f = open(path+"\\test.log",'a')
     f.write(t+"\n")
     f.close()
