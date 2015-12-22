@@ -65,8 +65,8 @@ def randam_create():
 if __name__ == '__main__':
     access_num,select_flag, select_id= randam_create()
 
-    print access_num
-    print select_flag
+#    print access_num
+#    print select_flag
 
     for i in range(access_num):
         time.sleep(2.0)
@@ -79,9 +79,9 @@ if __name__ == '__main__':
             try:
                 log_file_json("0","------------通信開始-------------")
                 r = requests.get(access_URL, params=query)
-                print r.status_code
-                print r.encoding
-                print r.headers
+#                print r.status_code
+#                print r.encoding
+#                print r.headers
     #           Json全体をエンコードする際に使用する。逆のdecodeはjson.loads()
                 enc = json.dumps(r.json(),ensure_ascii=False)
                 log_file_json(str(r.status_code),enc)
@@ -99,9 +99,9 @@ if __name__ == '__main__':
             try:
                 log_file_text("0","------------通信開始-------------")
                 r = requests.get(access_URL)
-                print r.status_code
-                print r.encoding
-                print r.headers
+#                print r.status_code
+#                print r.encoding
+#                print r.headers
     #           print r.text
                 log_file_text(str(r.status_code))
     #           log_file(r.text)
