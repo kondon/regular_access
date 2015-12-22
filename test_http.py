@@ -55,7 +55,7 @@ def log_file_error(error_m):
     f.close()
 
 def randam_create():
-    access_n = random.randint(1, 10)
+    access_n = random.randint(1, 20)
     #access_n = 3
     select_f = random.randint(0,1)
     #select_f = 0
