@@ -65,8 +65,8 @@ def randam_create():
 if __name__ == '__main__':
     access_num,select_flag, select_id= randam_create()
 
-#    print access_num
-#    print select_flag
+    print access_num
+    print select_flag
 
     for i in range(access_num):
         time.sleep(2.0)
@@ -78,6 +78,7 @@ if __name__ == '__main__':
             }
             try:
                 log_file_json("0","------------通信開始-------------")
+                print "------------connection start-------------"
                 r = requests.get(access_URL, params=query)
 #                print r.status_code
 #                print r.encoding
@@ -91,13 +92,14 @@ if __name__ == '__main__':
                 break
             finally:
                 log_file_json("0","------------通信終了-------------")
-
+                print "------------connection stop-------------"
 
         else:
             access_URL = 'https://test-sample-kondo.herokuapp.com/web/index.php'
 
             try:
                 log_file_text("0","------------通信開始-------------")
+                print "------------connection start-------------"
                 r = requests.get(access_URL)
 #                print r.status_code
 #                print r.encoding
@@ -110,3 +112,4 @@ if __name__ == '__main__':
                 break
             finally:
                 log_file_text("0","------------通信終了-------------")
+                print "------------connection stop-------------"
