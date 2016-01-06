@@ -21,6 +21,8 @@ import time
 # 常にバイト文字列なのか、ユニコード文字列なのか意識しておくことが大事!!!
 
 
+#見にくいコードになりすぎワロ
+
 def log_file_text(st_code,t = "index.api"):
     path = "D:\\heroku_http_access_log"
 # 今回はレスポンスでUTF-8で返却されているため、書き込む際にファイルをUTF-8で扱う必要がある。
@@ -43,6 +45,19 @@ def log_file_json(st_code,t):
         f.close()
     else:
         f = codecs.open(path+"\\test_api.log", "a", "utf-8")
+        f.write(now_time+" :code"+st_code+" :"+t+"\r\n")
+        f.close()
+
+def log_file_text2(st_code,t = "html_access"):
+    path = "D:\\heroku_http_access_log"
+# 今回はレスポンスでUTF-8で返却されているため、書き込む際にファイルをUTF-8で扱う必要がある。
+    now_time = datetime.now().strftime("%Y/%m/%d %H:%M:%S")
+    if st_code == "0":
+        f = open(path+"\\html_access.log", "a")
+        f.write(now_time+" :"+t+"\r\n")
+        f.close()
+    else:
+        f = codecs.open(path+"\\test_index.log", "a", "utf-8")
         f.write(now_time+" :code"+st_code+" :"+t+"\r\n")
         f.close()
 
@@ -72,26 +87,47 @@ if __name__ == '__main__':
         time.sleep(2.0)
 
         if select_flag == 0:
-            access_URL = 'https://test-sample-kondo.herokuapp.com/web/test_api.php'
-            query = {
-                'id': select_id
-            }
+####        api.phpの方にアクセスする場合。ただNewRelicではWeb,Non-webという区分けがあるようなのでとりあえず除外
+#            access_URL = 'https://test-sample-kondo.herokuapp.com/web/test_api.php'
+#            query = {
+#                'id': select_id
+#            }
+#            try:
+#                log_file_json("0","------------通信開始-------------")
+#                print "------------connection start-------------"
+#                r = requests.get(access_URL, params=query)
+##                print r.status_code
+##                print r.encoding
+##                print r.headers
+##               Json全体をエンコードする際に使用する。逆のdecodeはjson.loads()
+#                enc = json.dumps(r.json(),ensure_ascii=False)
+#                log_file_json(str(r.status_code),enc)
+##               print enc
+#            except Exception as e:
+#                log_file_error(str(type(e)))
+#                break
+#            finally:
+#                log_file_json("0","------------通信終了-------------")
+#                print "------------connection stop-------------"
+
+###         htmlにアクセスする場合
+            access_URL = 'https://test-sample-kondo.herokuapp.com/web/test.html'
+
             try:
-                log_file_json("0","------------通信開始-------------")
+                log_file_text2("0","------------通信開始-------------")
                 print "------------connection start-------------"
-                r = requests.get(access_URL, params=query)
+                r = requests.get(access_URL)
 #                print r.status_code
 #                print r.encoding
 #                print r.headers
-    #           Json全体をエンコードする際に使用する。逆のdecodeはjson.loads()
-                enc = json.dumps(r.json(),ensure_ascii=False)
-                log_file_json(str(r.status_code),enc)
-    #           print enc
+#               Json全体をエンコードする際に使用する。逆のdecodeはjson.loads()
+                log_file_text2(str(r.status_code))
+#               print enc
             except Exception as e:
                 log_file_error(str(type(e)))
                 break
             finally:
-                log_file_json("0","------------通信終了-------------")
+                log_file_text2("0","------------通信終了-------------")
                 print "------------connection stop-------------"
 
         else:
@@ -104,9 +140,9 @@ if __name__ == '__main__':
 #                print r.status_code
 #                print r.encoding
 #                print r.headers
-    #           print r.text
+#                print r.text
                 log_file_text(str(r.status_code))
-    #           log_file(r.text)
+#                log_file(r.text)
             except Exception as e:
                 log_file_error(str(type(e)))
                 break
